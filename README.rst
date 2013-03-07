@@ -91,6 +91,18 @@ of loading it twice::
     axel.register('jquery-1.8', 'http://code.jquery.com/jquery-1.8.1.min.js');
     axel.load('jquery-1.8'); //Jquery 1.9 will be used
 
+API Reference
+=================================
 
+AXEL provides various api, the core API are ``load``, ``register`` and ``alias``
+but a few other exist that you might need to use:
+
+    - ``register(name, [path])`` - Registers the given module for the provided path, if no path is provided it just marks it as the root of its aliases
+    - ``load(name, [callback])`` - Loads the given module and call callback after it has been loaded
+    - ``alias(name, othername)`` - Aliases a module to another one, every time one of the two names will be refered the root one will be used
+    - ``ready(name, callback)`` - Whenever the module is loaded call the given callback, at least one path for the module has to be in place for this to work
+    - ``resolve(name)`` - Resolves an alias to its root module
+    - ``path(name)`` - Returns the root module file path for the given name
+    - ``clear()`` - Erase all registered modules and aliases, mostly meant for testing.
 
 
