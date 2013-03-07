@@ -18,6 +18,22 @@ loader adding the ability to detect when you are importing the same library mult
 
 .. image:: https://raw.github.com/amol-/axel/master/docs/tests.png
 
+Getting Started
+================================
+
+To get started with AXEL the only script you need to add to your ``<head>`` is AXEL itself::
+
+    <script src="https://raw.github.com/amol-/axel/master/src/axel.js"></script>
+
+Then you can load any other script directly from your body asynchronously::
+
+    <script>
+        axel.register('jquery', 'http://code.jquery.com/jquery-1.9.1.min.js').load('jquery', function() {
+            alert('jQuery loaded!');
+        });
+    </script>
+
+
 Loading Modules
 ================================
 
