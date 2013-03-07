@@ -33,6 +33,7 @@ Then you can load any other script directly from your body asynchronously::
         });
     </script>
 
+Give a look at the `example.html <https://raw.github.com/amol-/axel/master/docs/example.html>`_ file.
 
 Loading Modules
 ================================
