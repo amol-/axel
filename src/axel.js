@@ -127,7 +127,7 @@
 
         if (isFunction(name)) {
             headjs.ready('ALL', name);
-            return api
+            return api;
         }
 
         var original_path = api.path(name);
