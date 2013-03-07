@@ -122,11 +122,22 @@
     }
 
     api.ready = function(name, callback) {
-        var original_path = api.path(name);
-
         var headVar = win.head_conf && win.head_conf.head || "head";
         var headjs  = win[headVar];
+
+        if (isFunction(name)) {
+            headjs.ready('ALL', name);
+            return api;
+        }
+
+        var original_path = api.path(name);
         headjs.ready(original_path, callback);
+        return api;
+    }
+
+    // Fast isFunction implementation from Underscore.js.
+    function isFunction(object) {
+        return !!(object && object.constructor && object.call && object.apply);
     }
 
 })(window);
