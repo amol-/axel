@@ -48,11 +48,9 @@ jQuery 1.9 by simply registering jQuery before loading our library::
 
     axel.register('jquery', 'http://code.jquery.com/jquery-1.9.1.min.js');
 
-    //Any subsequent registration of jquery will be ignored
+    //Third Party Library imports jquery which has already been registered
     axel.register('jquery', 'http://code.jquery.com/jquery-1.8.1.min.js');
-
-    //jQuery 1.9 will be loaded.
-    axel.load('jquery');
+    axel.load('jquery'); //jQuery 1.9 will be loaded.
 
 Aliases
 ===============================
@@ -66,12 +64,9 @@ the file loaded by the library you can declare an alias::
     axel.register('jquery', 'http://code.jquery.com/jquery-1.9.1.min.js');
     axel.alias('jquery', 'jQuery');
 
-    //Any subsequent registration of jQuery will be ignored as it is aliased to jquery
-    //which is already registered.
+    //Third Party Library imports jQuery which has been aliased to jquery
     axel.register('jQuery', 'http://code.jquery.com/jquery-1.8.1.min.js');
-
-    //jQuery 1.9 will be loaded.
-    axel.load('jQuery');
+    axel.load('jQuery'); //jQuery 1.9 will be loaded.
 
 Register module without path
 ================================
@@ -86,11 +81,11 @@ of loading it twice::
     //Whenever jquery-1.8 is requested use jquery-1.9 instead
     axel.alias('jquery-1.8', 'jquery-1.9');
 
-    //Library 1 imports jquery
+    //Third Party Library 1 imports jquery
     axel.register('jquery-1.9', 'http://code.jquery.com/jquery-1.9.1.min.js');
     axel.load('jquery-1.9'); //Jquery 1.9 will be loaded
 
-    //Library 2 imports jquery
+    //Third Party Library 2 imports jquery
     axel.register('jquery-1.8', 'http://code.jquery.com/jquery-1.8.1.min.js');
     axel.load('jquery-1.8'); //Jquery 1.9 will be used
 
