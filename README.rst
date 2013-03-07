@@ -16,6 +16,8 @@ different names or paths.
 AXEL has born to satisfy a specific need: Improve the simple and small head.js
 loader adding the ability to detect when you are importing the same library multiple times.
 
+.. image:: https://github.com/altercation/solarized/raw/master/img/solarized-palette.png
+
 Loading Modules
 ================================
 
