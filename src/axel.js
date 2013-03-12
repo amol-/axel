@@ -107,8 +107,11 @@
                 throw {'type':'NotRegistered', 'message':'module has no paths, please call register ' +
                                                          'with at least one path before using load'};
 
-            if (paths.indexOf(original_path) == -1)
+            if (paths.indexOf(original_path) == -1) {
+                var entry = {};
+                entry[original_path] = original_path;
                 paths.push(original_path);
+            }
         }
 
         var headVar = win.head_conf && win.head_conf.head || "head";
