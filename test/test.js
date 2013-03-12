@@ -173,9 +173,12 @@ suite('Axel', function(){
 
         setup(function(){
             var head_js_load = window['head'].load;
-            window['head'].load = function(names) {
-                for (var i=0; i<names.length; ++i)
-                    loaded_file.push(names[i]);
+            window['head'].load = function() {
+                for (var i=0; i<arguments.length; ++i) {
+                    var loaded_script = arguments[i];
+                    if(loaded_script)
+                        loaded_file.push(loaded_script);
+                }
             };
         });
 

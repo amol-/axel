@@ -113,7 +113,9 @@
 
         var headVar = win.head_conf && win.head_conf.head || "head";
         var headjs  = win[headVar];
-        headjs.load(paths, callback);
+
+        var load_args = paths.concat(callback);
+        headjs.load.apply(null, load_args);
 
         return api;
     }
