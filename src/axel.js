@@ -88,6 +88,9 @@
     }
 
     api.load = function(name, callback) {
+        if (typeof callback === 'undefined')
+            callback = null;
+
         var paths = [];
 
         if(!(name instanceof Array))
