@@ -110,7 +110,7 @@
             if (paths.indexOf(original_path) == -1) {
                 var entry = {};
                 entry[original_path] = original_path;
-                paths.push(original_path);
+                paths.push(entry);
             }
         }
 
