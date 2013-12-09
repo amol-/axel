@@ -127,7 +127,7 @@ This can be achieved by registering a module as ``axel.Preloaded``::
     }
 
     //Register bootstrap which dependens on jQuery
-    axel.register('bootstrap', "${tg.url('/javascript/bootstrap.min.js')}");
+    axel.register('bootstrap', "/javascript/bootstrap.min.js");
 
     //Load both jquery and boostrap, loading jQuery will do nothing when marked as axel.Preloaded
     axel.load(['jquery', 'bootstrap']);
