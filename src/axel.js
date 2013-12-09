@@ -13,6 +13,8 @@
         aliases                = {},
         api                    = win['axel'] = (win['axel'] || {} );
 
+    api.Preloaded = {'axel-skip-load': true};
+
     api.register = function(name, path) {
         if (typeof path === 'undefined')
             path = null;
@@ -107,6 +109,9 @@
                 throw {'type':'NotRegistered', 'message':'module has no paths, please call register ' +
                                                          'with at least one path before using load'};
 
+            if (original_path === api.Preloaded)
+                continue;
+
             if (paths.indexOf(original_path) == -1) {
                 var entry = {};
                 entry[original_path] = original_path;
@@ -139,7 +144,10 @@
         }
 
         var original_path = api.path(name);
-        headjs.ready(original_path, callback);
+        if (original_path === api.Preloaded)
+            callback();
+        else
+            headjs.ready(original_path, callback);
         return api;
     }
 

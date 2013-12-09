@@ -108,6 +108,33 @@ of loading it twice::
     axel.register('jquery-1.8', 'http://code.jquery.com/jquery-1.8.1.min.js');
     axel.load('jquery-1.8'); //Jquery 1.9 will be used
 
+Mixing axel loaded files with <script> loaded files
+=====================================================
+
+AXEL provides minimal support for registering files which are loaded using
+a ``<script>`` tag instead of using axel itself. This can be useful if you have
+some kind of automatic script injection provided by your web framework.
+
+This can be achieved by registering a module as ``axel.Preloaded``::
+
+    if (typeof jQuery === 'undefined') {
+        //If jquery has not been already loaded, register it for loading
+        axel.register('jquery', 'http://code.jquery.com/jquery.js');
+    }
+    else {
+        //jQuery has already been loaded by a script tag in the head, skip loading
+        axel.register('jquery', axel.Preloaded);
+    }
+
+    //Register bootstrap which dependens on jQuery
+    axel.register('bootstrap', "${tg.url('/javascript/bootstrap.min.js')}");
+
+    //Load both jquery and boostrap, loading jQuery will do nothing when marked as axel.Preloaded
+    axel.load(['jquery', 'bootstrap']);
+
+    //axel.ready will correctly fire both when jQuery was loaded or marked as Preloaded
+    axel.ready('jquery', function() { alert('jQuery loaded!'); });
+
 API Reference
 =================================
 
