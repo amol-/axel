@@ -107,7 +107,7 @@ suite('Axel', function(){
             axel.register('original', 'file2.js');
 
             axel.load('original');
-            assert.equal(loaded_file, 'file.js');
+            assert.deepEqual(loaded_file, {'file.js': 'file.js'});
         });
 
         test('register with alias should lead to first path', function() {
@@ -116,7 +116,7 @@ suite('Axel', function(){
             axel.register('jquery', 'file2.js');
 
             axel.load('jquery');
-            assert.equal(loaded_file, 'file.js');
+            assert.deepEqual(loaded_file, {'file.js': 'file.js'});
         });
 
         test('register with alias first should lead to first path', function() {
@@ -126,7 +126,7 @@ suite('Axel', function(){
             axel.register('jquery', 'file3.js');
 
             axel.load('jquery');
-            assert.equal(loaded_file, 'file.js');
+            assert.deepEqual(loaded_file, {'file.js': 'file.js'});
         });
 
         test('should detect unknown precedence over aliases', function() {
@@ -153,7 +153,7 @@ suite('Axel', function(){
             axel.register('1', 'file.js');
 
             axel.load('1');
-            assert.equal(loaded_file, 'file.js');
+            assert.deepEqual(loaded_file, {'file.js': 'file.js'});
         });
 
         test('lazy register, should mark first module', function() {
@@ -163,7 +163,7 @@ suite('Axel', function(){
             axel.register('1', 'file.js');
 
             axel.load('3');
-            assert.equal(loaded_file, 'file.js');
+            assert.deepEqual(loaded_file, {'file.js': 'file.js'});
         });
     });
 
@@ -196,7 +196,7 @@ suite('Axel', function(){
             axel.alias('jQr', 'jQ');
 
             axel.load('jQuery');
-            chai.assert.equal(loaded_file, 'file.js');
+            chai.assert.deepEqual(loaded_file, [{'file.js': 'file.js'}]);
         });
 
         test('should correctly load multiple files', function() {
@@ -206,7 +206,7 @@ suite('Axel', function(){
             axel.register('jQuery', 'jquery.js');
 
             axel.load(['jQuery', 'another']);
-            chai.assert.deepEqual(loaded_file, ['file.js', 'file2.js']);
+            chai.assert.deepEqual(loaded_file, [{'file.js': 'file.js'}, {'file2.js': 'file2.js'}]);
         });
 
         test('should collapse load of same file', function() {
@@ -216,7 +216,7 @@ suite('Axel', function(){
             axel.register('jQuery', 'jquery.js');
 
             axel.load(['jQuery', 'original']);
-            chai.assert.deepEqual(loaded_file, ['file.js']);
+            chai.assert.deepEqual(loaded_file, [{'file.js': 'file.js'}]);
         });
     });
 });
