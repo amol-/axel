@@ -90,7 +90,7 @@ suite('Axel', function(){
         var head_js_load = null;
 
         setup(function(){
-            var head_js_load = window['head'].load;
+            head_js_load = window['head'].load;
             window['head'].load = function(name) {
                 loaded_file = name;
             };
@@ -172,7 +172,7 @@ suite('Axel', function(){
         var head_js_load = null;
 
         setup(function(){
-            var head_js_load = window['head'].load;
+            head_js_load = window['head'].load;
             window['head'].load = function() {
                 for (var i=0; i<arguments.length; ++i) {
                     var loaded_script = arguments[i];
