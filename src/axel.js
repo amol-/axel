@@ -94,6 +94,7 @@
             callback = null;
 
         var paths = [];
+        var paths_objs = [];
 
         if(!(name instanceof Array))
             name = [name];
@@ -114,13 +115,16 @@
 
             if (paths.indexOf(original_path) == -1) {
                 paths.push(original_path);
+
+                var path_obj = {};
+                path_obj[original_path] = original_path;
+                paths_objs.push(path_obj);
             }
         }
 
         var headVar = win.head_conf && win.head_conf.head || "head";
         var headjs  = win[headVar];
-        var path_objs = objects(paths);
-        var load_args = path_objs.concat(callback);
+        var load_args = paths_objs.concat(callback);
         headjs.load.apply(null, load_args);
 
         return api;
@@ -152,18 +156,6 @@
     // Fast isFunction implementation from Underscore.js.
     function isFunction(object) {
         return !!(object && object.constructor && object.call && object.apply);
-    }
-
-    function objects(array1, array2) {
-        if (typeof array2 === 'undefined') array2 = array1;
-        var objects = [];
-        var object;
-        for (var i=0; i<array1.length; i++) {
-            object = {};
-            object[array1[i]] = array2[i];
-            objects.push(object);
-        }
-        return objects;
     }
 
 })(window);
