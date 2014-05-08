@@ -93,34 +93,11 @@
         if (typeof callback === 'undefined')
             callback = null;
 
-        var paths = [];
-        var paths_objs = [];
-
         if(!(name instanceof Array))
             name = [name];
 
-        for (var i=0; i<name.length; ++i) {
-            var original_name = api.resolve(name[i]);
-            if (original_name == null)
-                throw {'type':'NotFound', 'message':'module not found, please call register ' +
-                                                    'or alias before using load'};
-
-            var original_path = api.path(name[i]);
-            if (original_path == null)
-                throw {'type':'NotRegistered', 'message':'module has no paths, please call register ' +
-                                                         'with at least one path before using load'};
-
-            if (original_path === api.Preloaded)
-                continue;
-
-            if (paths.indexOf(original_path) == -1) {
-                paths.push(original_path);
-
-                var path_obj = {};
-                path_obj[original_path] = original_path;
-                paths_objs.push(path_obj);
-            }
-        }
+        var dependencies = resolveListOfDependencies(name);
+        var paths_objs = dependencies.paths_objs;
 
         var headVar = win.head_conf && win.head_conf.head || "head";
         var headjs  = win[headVar];
@@ -148,25 +125,8 @@
         if(!(name instanceof Array))
             name = [name];
 
-        var paths = [];
-        for (var i=0; i<name.length; ++i) {
-            var original_name = api.resolve(name[i]);
-            if (original_name == null)
-                throw {'type':'NotFound', 'message':'module not found, please call register ' +
-                                                    'or alias before using ready'};
-
-            var original_path = api.path(name[i]);
-            if (original_path == null)
-                throw {'type':'NotRegistered', 'message':'module has no paths, please call register ' +
-                                                         'with at least one path before using ready'};
-
-            if (original_path === api.Preloaded)
-                continue;
-
-            if (paths.indexOf(original_path) == -1) {
-                paths.push(original_path);
-            }
-        }
+        var dependencies = resolveListOfDependencies(name);
+        var paths = dependencies.paths;
 
         if (paths.length == 0) {
             // All Preloaded
@@ -180,6 +140,37 @@
     // Fast isFunction implementation from Underscore.js.
     function isFunction(object) {
         return !!(object && object.constructor && object.call && object.apply);
+    }
+
+    function resolveListOfDependencies(name) {
+        var paths = [];
+        var paths_objs = [];
+
+        for (var i=0; i<name.length; ++i) {
+            var original_name = api.resolve(name[i]);
+            if (original_name == null)
+                throw {'type':'NotFound', 'message':'module not found, please call register ' +
+                                                    'or alias before using load'};
+
+            var original_path = api.path(name[i]);
+            if (original_path == null)
+                throw {'type':'NotRegistered', 'message':'module has no paths, please call register ' +
+                                                         'with at least one path before using load'};
+
+            if (original_path === api.Preloaded)
+                continue;
+
+            if (paths.indexOf(original_path) == -1) {
+                paths.push(original_path);
+
+                var path_obj = {};
+                path_obj[original_path] = original_path;
+                paths_objs.push(path_obj);
+            }
+        }
+
+        return {paths: paths,
+                paths_objs: paths_objs};
     }
 
 })(window);
